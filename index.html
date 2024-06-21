@@ -36,18 +36,24 @@
 <body>
     <h1>Galleria Immagini</h1>
     <div class="links">
-        <a href="#" onclick="showImage('immagine 1.jpg'); return false;">Barbeque </a>
-        <a href="#" onclick="showImage(['h1.jpg','h2.jpg']); return false;">Hair Dryer</a>
-        <a href="#" onclick="showImage(['flat 1.jpg','flat 2.jpg']); return false;">Flat Iron</a>
+        <a href="#" onclick="showImages(['immagine 1.jpg]); return false;">Barbecue</a>
+        <a href="#" onclick="showImages(['h1.jpg', 'h2.jpg']); return false;">Hair Dryer</a>
+        <a href="#" onclick="showImages(['flat 1.jpg', 'flat 2.jpg']); return false;">Flat Iron</a>
     </div>
     <div class="gallery" id="gallery">
-        <img id="gallery-image" src="" alt="Immagine">
+        <!-- Le immagini verranno inserite qui tramite JavaScript -->
     </div>
     <script>
-        function showImage(imageSrc) {
+        function showImages(imageArray) {
             var gallery = document.getElementById('gallery');
-            var galleryImage = document.getElementById('gallery-image');
-            galleryImage.src = imageSrc;
+            gallery.innerHTML = ''; // Svuota la galleria
+
+            imageArray.forEach(function(imageSrc) {
+                var img = document.createElement('img');
+                img.src = imageSrc;
+                gallery.appendChild(img);
+            });
+
             gallery.style.display = 'block';
         }
     </script>
