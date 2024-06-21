@@ -8,31 +8,50 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            padding: 20px;
             background-color: #f0f0f0;
         }
         .gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+            display: none;
+            margin-top: 20px;
         }
         .gallery img {
             max-width: 100%;
             height: auto;
             border: 2px solid #ccc;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .links a {
+            display: block;
+            margin-bottom: 10px;
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .links a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="gallery">
-        <img src="immagine 1.jpg" alt="Barbecue">
-        <img src="immagine 2.jpg" alt="HairDryer">
-        <img src="immagine 3.jpg" alt="Flat Iron">
+    <h1>Galleria Immagini</h1>
+    <div class="links">
+        <a href="#" onclick="showImage('immagine 1.jpg'); return false;">Immagine 1</a>
+        <a href="#" onclick="showImage('immagine 2.jpg'); return false;">Immagine 2</a>
+        <a href="#" onclick="showImage('immagine 3.jpg'); return false;">Immagine 3</a>
     </div>
+    <div class="gallery" id="gallery">
+        <img id="gallery-image" src="" alt="Immagine">
+    </div>
+    <script>
+        function showImage(imageSrc) {
+            var gallery = document.getElementById('gallery');
+            var galleryImage = document.getElementById('gallery-image');
+            galleryImage.src = imageSrc;
+            gallery.style.display = 'block';
+        }
+    </script>
 </body>
 </html>
+
 
