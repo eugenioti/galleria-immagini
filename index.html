@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #f0f0f0;
+            background-color: #87CEEB;
         }
         .gallery {
             display: none;
@@ -34,14 +34,17 @@
     </style>
 </head>
 <body>
-    <h1>Galleria Immagini</h1>
+    <h1>Main Works</h1>
     <div class="links">
-        <a href="#" onclick="showImages(['immagine 1.jpg]); return false;">Barbecue</a>
+        <a href="#" onclick="showImages('immagine 1.jpg); return false;">Barbecue</a>
         <a href="#" onclick="showImages(['h1.jpg', 'h2.jpg']); return false;">Hair Dryer</a>
         <a href="#" onclick="showImages(['flat 1.jpg', 'flat 2.jpg']); return false;">Flat Iron</a>
     </div>
     <div class="gallery" id="gallery">
         <!-- Le immagini verranno inserite qui tramite JavaScript -->
+    </div>
+<div class="comment">
+        All projects were executed with C#.
     </div>
     <script>
         function showImages(imageArray) {
