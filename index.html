@@ -78,14 +78,14 @@
 <body>
     <div class="header">
         <h2>Eugenio Turchet</h2>
-        <p>Email: <a href="mailto:eugenioturchet@example.com">eugenioturchet@example.com</a></p>
-        <p>Phone: +39 123 456 7890</p>
+        <p>Email: <a href="mailto:eugeniot1105@gmail.com">eugeniot1105@gmail.com</a></p>
+        <p>Phone: +39 389 465 5730</p>
     </div>
-    <h1>Galleria Immagini</h1>
+    <h1>Main Works</h1>
     <div class="links">
         <a href="#" onclick="showImages(imageDataSet1); return false;">Barbeque</a>
-        <a href="#" onclick="showImages(imageDataSet2); return false;">Immagini 3 e 4</a>
-        <a href="#" onclick="showImages(imageDataSet3); return false;">Immagini 5 e 6</a>
+        <a href="#" onclick="showImages(imageDataSet2); return false;">Hair Dryer</a>
+        <a href="#" onclick="showImages(imageDataSet3); return false;">Flat Iron</a>
     </div>
     <div class="gallery" id="gallery">
         <!-- Le immagini verranno inserite qui tramite JavaScript -->
@@ -97,9 +97,8 @@
         const imageDataSet1 = [
             {
                 src: 'immagine 1.jpg',
-                description: 'This image shows a 3D model of a Barbeque.',
-                code: `// C# code to generate the image. We are using devDept.Eyeshot
-design1.Layers[0].Color = Color.FromArgb(127, 127, 127);
+                description: 'This image shows a 3D model of a mechanical part.',
+                code: `design1.Layers[0].Color = Color.FromArgb(127, 127, 127);
 
 CompositeCurve basementOuter = new CompositeCurve(
     new Line(Plane.XZ, 0, 0, 80, 0),
@@ -169,20 +168,23 @@ wall.Translate(0, 0, 695);
 design1.Entities.Add(basement);
 design1.Entities.Add(table, design1.Layers[0].Name, Color.Crimson);
 design1.Entities.Add(wall);
-//Utility transformation to use
+//----------------------------
+
+//Utility transformation
 ext1.TransformBy(
     new Rotation(Math.PI, Vector3D.AxisZ) * new Rotation(Math.PI / 2, Vector3D.AxisX) 
     * new Translation(- 650 + radius + thickness,695 + thickness + radius, -20)
-    );    }
-            
+    );
+`
+           
+            }
         ];
 
         const imageDataSet2 = [
             {
                 src: 'h1.jpg',
-                description: 'This image shows a 3D model of a hairdryer.',
-                code: `// C# code to generate the image using the Eyeshot package
-design1.ActiveViewport.DisplayMode = displayType.Shaded;
+                description: 'Design Hair Dryer.',
+                code: `design1.ActiveViewport.DisplayMode = displayType.Shaded;
 design1.Shaded.EdgeColorMethod = edgeColorMethodType.EntityColor;
 design1.Shaded.EdgeThickness = 2;
 
@@ -304,10 +306,12 @@ MirrorEntities(m, offsetEntList);
 // adds to 3D scene
 design1.Entities.AddRange(whiteEntList, Color.WhiteSmoke);
 design1.Entities.AddRange(darkEntList, Color.FromArgb(31, 31, 31));
-design1.Entities.AddRange(offsetEntList, Color.DarkGray);
-
-//Utility methods used to create the components of the hair dryer
-private static Surface DrawNozzle(double trimTol)
+design1.Entities.AddRange(offsetEntList, Color.DarkGray);`
+            },
+            {
+                src: 'h2.jpg',
+                description: 'Utility methods and functions used to create the components of the hair dryer',
+                code: `private static Surface DrawNozzle(double trimTol)
 {
     Arc a1 = new Arc(Plane.YZ, Point2D.Origin, 30, 0, Math.PI);
     a1.Translate(81, 0, 0);
@@ -358,8 +362,6 @@ private static Surface DrawBody()
 
     return s1;
 }  
-
-//utility functions 
 private static Entity[] OffsetSurfaces(double amount, double tol, IList<Entity> whiteEntList)
 {
     List<Entity> offSurf = new List<Entity>();
@@ -437,21 +439,19 @@ private static void MirrorEntities(Mirror m, IList<Entity> entList)
            entList.Add(copy);
        }
    }
-}
-            },
-            {
-                src: 'h2.jpg',
-                
-             
+}`
+
             }
+
+
+
         ];
 
         const imageDataSet3 = [
             {
                 src: 'flat 1.jpg',
-                description: 'This image shows a 3D model of a flat iron.',
-                code: `// C# code to generate the image using the Eyeshot package
-design1.ActiveViewport.DisplayMode = displayType.Shaded;
+                description: 'design a flat iron',
+                code: `design1.ActiveViewport.DisplayMode = displayType.Shaded;
 design1.Shaded.EdgeColorMethod = edgeColorMethodType.EntityColor;
 design1.Shaded.EdgeThickness = 2;
 
@@ -600,18 +600,17 @@ devDept.Eyeshot.Entities.Region r2 = new devDept.Eyeshot.Entities.Region(FerroBa
 r2.Translate(-.9 * Vector3D.AxisZ);
 Surface[] plate = r2.ExtrudeAsSurface(-1.5 * Vector3D.AxisZ);
 design1.Entities.AddRange(plate, Color.Gray);
-design1.Entities.Regen();'
+design1.Entities.Regen();`
             },
             {
                 src: 'flat 2.jpg',
-                description: 'mesh generation.',
-                code: '
-// Mesh generation of side surface
+                description: '',
+                code: `// Mesh generation of side surface
 SurfaceMesher sm = new SurfaceMesher(s, 3);
 sm.DoWork();
 
 design1.ActiveViewport.DisplayMode = displayType.Shaded;
-design1.Entities.Add(sm.Result);'
+design1.Entities.Add(sm.Result);`
             }
         ];
 
