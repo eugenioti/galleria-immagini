@@ -81,15 +81,19 @@
         <a href="#" onclick="showImages(imageDataSet1); return false;">Barbeque</a>
         <a href="#" onclick="showImages(imageDataSet2); return false;">Hair Dryer</a>
         <a href="#" onclick="showImages(imageDataSet3); return false;">Flat Iron</a>
+        <a href="#" onclick="showImages(imageDataSet5); return false;">Shaver</a>
+        <a href="#" onclick="showImages(imageDataSet4); return false;">Mount+Simulation(FEM)</a>
+       
     </div>
     <div class="gallery" id="gallery">
         <!-- Le immagini verranno inserite qui tramite JavaScript -->
     </div>
     <div class="comment">
         All projects were executed on Visual Studio (Windows) using the Eyeshot package.
+        For more details see <a href="https://www.devdept.com">here</a>.
     </div>
     <div class="header">
-        <h2>Eugenio Turchet</h2>
+        <h2>References</h2>
         <p>Email: <a href="mailto:eugeniot1105@gmail.com">eugeniot1105@gmail.com</a></p>
         <p>Phone: +39 389 465 5730</p>
     </div>
@@ -613,6 +617,222 @@ design1.ActiveViewport.DisplayMode = displayType.Shaded;
 design1.Entities.Add(sm.Result);`
             }
         ];
+const imageDataSet4= [
+            {
+                src: 'mount.jpg',
+                description: '',
+                code: `// First shape
+CompositeCurve cc1 = new CompositeCurve(new ICurve[]
+{
+    new Line(Plane.XY, 0, 0,96,0),
+    new Line(Plane.XY,96,0,96,24),
+    new Line(Plane.XY,96,24,76,24),
+    new Arc(Plane.XY,new Point2D(76,32),new Point2D(76,40),new Point2D(76,24)),
+    new Line(Plane.XY,76,40,96,40),
+    new Line(Plane.XY,96,40,96,64),
+    new Line(Plane.XY,96,64,0,64),
+    new Line(Plane.XY,0,64,0,0),
+});
+
+devDept.Eyeshot.Entities.Region r1 = new devDept.Eyeshot.Entities.Region(cc1, Plane.XY, true);
+Brep ext1 = r1.ExtrudeAsBrep(16);
+design1.Entities.Add(ext1, Color.Salmon);  
+
+// Second shape
+CompositeCurve cc2 = new CompositeCurve(new ICurve[]
+{
+    new Line(Plane.YZ,0,0,0,34),
+    new Line(Plane.YZ,0,34,20,64),
+    new Line(Plane.YZ,20,64,64,64),
+    new Line(Plane.YZ,64,64,64,0),
+    new Line(Plane.YZ,64,0,0,0),
+});
+
+devDept.Eyeshot.Entities.Region r2 = new devDept.Eyeshot.Entities.Region(cc2, Plane.YZ, true);
+ext1.ExtrudeAdd(r2, 16);
+
+// Third shape
+CompositeCurve cc3 = new CompositeCurve(new ICurve[]
+{
+    new Line(Plane.XZ,16,16,56,16),
+    new Line(Plane.XZ,56,16,56,44),
+    new Line(Plane.XZ,56,44,48,44),
+    new Arc(Plane.XZ,new Point2D(36,44),new Point2D(24,44),new Point2D(48,44)),
+    new Line(Plane.XZ,24,44,16,44),
+    new Line(Plane.XZ,16,44,16,16),
+});
+devDept.Eyeshot.Entities.Region r3 = new devDept.Eyeshot.Entities.Region(cc3, Plane.XZ, true);
+r3.Translate(0, 22, 0);
+ext1.ExtrudeAdd(r3, -42);
+
+// Final shape
+CompositeCurve cc4 = new CompositeCurve(new ICurve[]
+{
+     new Line(Plane.XZ,56,16,96,16),
+     new Line(Plane.XZ,96,16,56,44),
+     new Line(Plane.XZ,56,44,56,16),
+});
+devDept.Eyeshot.Entities.Region r4 = new devDept.Eyeshot.Entities.Region(cc4, Plane.XZ, true);
+r4.Translate(0, 52, 0);
+ext1.ExtrudeAdd(r4, -12);
+design1.Entities.Add(ext1);
+
+design1.Entities.Regen();`
+},
+{              src: 'simulation.jpg',
+                description: 'Problem definition',
+                code: `// Adds the material
+simulation1.Materials.Add(Material.Copper);
+ext1.MaterialName = Material.Copper.Name;
+  
+// Mesh generation
+VolumeMesher vm = new VolumeMesher(ext1, 5, false, simulation1.Materials);
+vm.DoWork();
+
+FemMesh fm = vm.Result;
+fm.Regen(0); // prepares boundary nodes
+
+// Sets boundary conditions
+fm.SetRestraintOnFace(true, true, true, 6, ext1, 0, 0, 0);
+fm.SetForceOnFace(new Vector3D(0, 0, -10), 12, ext1);
+
+// Adds to scene
+simulation1.Entities.Add(fm);
+
+// Changes size of boundary condition symbols
+fm.SymbolSize = 1;`
+},
+{         src: 'deformation.jpg',
+          description: 'Results of deformation and plots',
+          code: `// Solves the system of equations
+Solver s = new Solver(fm);
+s.DoWork();  
+
+// Computes the results plot (Von Mises)
+fm.PlotMode = FemMesh.plotType.VonMises;
+fm.ComputePlot(simulation1, simulation1.Legend);
+
+// Hides boundary conditions before display
+simulation1.ShowLoad = false;
+simulation1.ShowRestraint = false;`
+}
+];
+const imageDataSet5= [
+            {
+                src: 'shaver.jpg',
+                description: '',
+                code: `design1.Units = linearUnitsType.Inches;
+
+Plane right = Plane.YZ;
+Plane pln1 = (Plane)right.Clone();
+pln1.Rotate(Utility.DegToRad(40), Vector3D.AxisY);
+
+Plane pln2 = (Plane)right.Clone();
+pln2.Rotate(Utility.DegToRad(25), Vector3D.AxisY);
+
+Plane pln3 = pln2.Offset(-12.5);
+Plane pln4 = (Plane)right.Clone();
+pln4.Rotate(Utility.DegToRad(-30), Vector3D.AxisY);
+
+Plane pln5 = pln1.Offset(25.4);
+Plane pln6 = (Plane)right.Clone();
+pln6.Rotate(Utility.DegToRad(-34), Vector3D.AxisY);
+
+Plane pln7 = pln6.Offset(14);
+
+Circle sketch3 = new Circle(right, new Point2D(0,99),19);
+sketch3.Rotate(Utility.DegToRad(-90), sketch3.Plane.AxisZ, sketch3.Plane.Origin);
+
+Circle sketch4 = new Circle(pln3, new Point2D(0,89),23);
+sketch4.Rotate(Utility.DegToRad(-90), sketch4.Plane.AxisZ, sketch4.Plane.Origin);
+
+Ellipse sketch5 = new Ellipse(pln4, new Point2D(0,152.5),51,25.5);
+sketch5.Rotate(Utility.DegToRad(-90), sketch5.Plane.AxisZ, sketch5.Plane.Origin);
+
+Circle sketch6 = new Circle(pln5, new Point2D(0, 94), 7.6);
+sketch6.Rotate(Utility.DegToRad(-90), sketch6.Plane.AxisZ, sketch6.Plane.Origin);
+
+Brep loft1 = Brep.Loft(new ICurve[] { sketch6, sketch4, sketch3, sketch5 }, 2);
+devDept.Eyeshot.Entities.Region cr = devDept.Eyeshot.Entities.Region.CreateCircle(right, new Point2D(0, 63.5), 71);
+devDept.Eyeshot.Entities.Region rr = devDept.Eyeshot.Entities.Region.CreateRectangle(right, -51, 63.5, 102, 127);
+devDept.Eyeshot.Entities.Region sketch2 = devDept.Eyeshot.Entities.Region.Difference(rr, cr)[0];
+loft1.ExtrudeRemove(sketch2, -127);
+loft1.SplitBy(pln7, out Brep[] split1, out Brep[] split2);
+
+Brep body = split2[0];
+Brep cap = split1[0];
+devDept.Eyeshot.Entities.Region rr1 = devDept.Eyeshot.Entities.Region.CreateRectangle(1.3, 1.3, true);
+rr1.Translate(0, -25, 0);
+rr1.Rotate(Utility.DegToRad(-30), Vector3D.AxisY, Point3D.Origin);
+
+cap.ExtrudeRemovePattern(rr1, 200, Plane.XY, 25, 1, 2.5, 21);
+
+body.Translate(20, 0, -104);
+cap.Translate(20, 0, -104);
+  
+design1.Entities.Add(body, design1.Layers[0].Name, Color.DodgerBlue);
+design1.Entities.Add(cap, design1.Layers[0].Name, Color.Gray);`
+},
+{              src: 'cavità.jpg',
+                description: 'Switch housing',
+                code: `Plane pl1 = Plane.XY;
+pl1.Rotate(Math.PI / 8, Vector3D.AxisY);
+
+Ellipse a1 = new Ellipse(pl1, 5, 5);
+a1.Translate(14, 0, 13);
+devDept.Eyeshot.Entities.Region r1 = new devDept.Eyeshot.Entities.Region(a1);
+Brep foro1 = r1.ExtrudeAsBrep(-65 * Vector3D.AxisZ);
+
+Ellipse a2 = new Ellipse(pl1, 22, 24);
+a2.Translate(3, 0, 25);
+devDept.Eyeshot.Entities.Region r2 = new devDept.Eyeshot.Entities.Region(a2);
+
+devDept.Eyeshot.Entities.Region ra1 = new devDept.Eyeshot.Entities.Region(a1, a1.Plane);
+devDept.Eyeshot.Entities.Region ra2 = new devDept.Eyeshot.Entities.Region(a2, a2.Plane);
+Surface sa1 = ra1.ConvertToSurface();
+Surface sa2 = ra2.ConvertToSurface(); 
+
+// Brep to subtract
+Brep ruled = Brep.Ruled(sa1, sa2, 0.01);
+
+Brep.Face f2 = body.Faces[2];
+Surface[] sf2 = f2.ConvertToSurface();
+sf2[0].Offset(-1, 0.01, out Surface offset1);
+  
+// cut by surface
+ruled.CutBy(offset1, true);
+  
+// subtraction
+Brep bodySwitch = Brep.Difference(body, ruled)[0];
+
+design1.Entities.Add(bodySwitch, Color.DodgerBlue);`},
+{               src:'logo.jpg',
+                description: 'Brand engraving',
+                code: `design1.TextStyles.Add(new TextStyle("MyStyle", "Arial", fontStyle.Regular));
+
+devDept.Eyeshot.Entities.Text text = new devDept.Eyeshot.Entities.Text(Plane.XY, "PHILIPS", 3, devDept.Eyeshot.Entities.Text.alignmentType.BottomCenter, "MyStyle");
+text.Rotate(Math.PI / 2, Vector3D.AxisZ);
+text.Translate(-35, 0, 37);
+
+devDept.Eyeshot.Entities.Region[] letters = text.ConvertToRegions(design1);
+
+Brep.Face f = bodySwitch.Faces[0];
+Surface sf = f.ConvertToSurface()[0];
+sf.Offset(-.1, 0.01, out Surface offset2);
+
+foreach (devDept.Eyeshot.Entities.Region reg in letters)
+{
+    Brep extLetter = reg.ExtrudeAsBrep(-7.5);
+    extLetter.CutBy(offset2, true);
+    bodySwitch.Remove(extLetter);
+}
+
+design1.Entities.Regen();`
+}
+];
+
+
+
 
          function showImages(imageDataSet) {
             const gallery = document.getElementById('gallery');
