@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galleria Immagini</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
     <style>
         body {
             font-family: Times New Roman, serif;
@@ -14,7 +18,7 @@
             color: #333;
 
         }
-         .footer {
+        .footer {
             background-color: #fff;
             padding: 10px 20px;
             text-align: left;
@@ -76,34 +80,22 @@
     </style>
 </head>
 <body>
-    <h1>Main Works</h1>
-    <div class="links">
-        <a href="#" onclick="showImages(imageDataSet1); return false;">Barbeque</a>
-        <a href="#" onclick="showImages(imageDataSet2); return false;">Hair Dryer</a>
-        <a href="#" onclick="showImages(imageDataSet3); return false;">Flat Iron</a>
-        <a href="#" onclick="showImages(imageDataSet5); return false;">Shaver</a>
-        <a href="#" onclick="showImages(imageDataSet4); return false;">Mount+Simulation(FEM)</a>
-       
-    </div>
-    <div class="gallery" id="gallery">
-        <!-- Le immagini verranno inserite qui tramite JavaScript -->
-    </div>
-    <div class="comment">
-        All projects were executed on Visual Studio (Windows) using the Eyeshot package.
-        For more details see <a href="https://www.devdept.com">here</a>.
-    </div>
-    <div class="header">
-        <h2>References</h2>
-        <p>Email: <a href="mailto:eugeniot1105@gmail.com">eugeniot1105@gmail.com</a></p>
-        <p>Phone: +39 389 465 5730</p>
-    </div>
-    <script>
-        const imageDataSet1 = [
-            {
-                src: 'immagine 1.jpg',
-                description: 'This image shows a 3D model of a mechanical part.',
-                code: `design1.Layers[0].Color = Color.FromArgb(127, 127, 127);
+<h1>Main Works</h1>
 
+<div class="accordion" id="Barbecue">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">Barbecue</button>
+        </h2>
+
+        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <figure class="figure">
+                    <img src='immagine 1.jpg' class="figure-img img-fluid rounded">
+                    <figcaption class="figure-caption">This image shows a 3D model of a mechanical part.</figcaption>
+                </figure>
+                <pre><code>
+design1.Layers[0].Color = Color.FromArgb(127, 127, 127);
 CompositeCurve basementOuter = new CompositeCurve(
     new Line(Plane.XZ, 0, 0, 80, 0),
     new Line(Plane.XZ, 80, 0, 170, 100),
@@ -176,19 +168,29 @@ design1.Entities.Add(wall);
 
 //Utility transformation
 ext1.TransformBy(
-    new Rotation(Math.PI, Vector3D.AxisZ) * new Rotation(Math.PI / 2, Vector3D.AxisX) 
+    new Rotation(Math.PI, Vector3D.AxisZ) * new Rotation(Math.PI / 2, Vector3D.AxisX)
     * new Translation(- 650 + radius + thickness,695 + thickness + radius, -20)
     );
-`
-           
-            }
-        ];
+                    </code></pre>
+            </div>
+            </div>
+        </div>
+    </div>
 
-        const imageDataSet2 = [
-            {
-                src: 'h1.jpg',
-                description: 'Design Hair Dryer.',
-                code: `design1.ActiveViewport.DisplayMode = displayType.Shaded;
+<div class="accordion" id="Hair Dryer">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">Hair Dryer</button>
+        </h2>
+
+        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <figure class="figure">
+                    <img src='h1.jpg' class="figure-img img-fluid rounded">
+                    <figcaption class="figure-caption">Design Hair Dryer.</figcaption>
+                </figure>
+                <pre><code>
+design1.ActiveViewport.DisplayMode = displayType.Shaded;
 design1.Shaded.EdgeColorMethod = edgeColorMethodType.EntityColor;
 design1.Shaded.EdgeThickness = 2;
 
@@ -196,15 +198,15 @@ design1.Shaded.EdgeThickness = 2;
 double trimTol = 0.001;
 double filletTol = 0.001;
 double offsetTol = 0.1;
-double offsetAmount = -1;  
+double offsetAmount = -1;
 
 
 // creates the lists of the components of the hairdryer
 List<Entity> whiteEntList = new List<Entity>();
 List<Entity> darkEntList = new List<Entity>();
-List<Entity> offsetEntList = new List<Entity>();  
+List<Entity> offsetEntList = new List<Entity>();
 
-// body -------------------------  
+// body -------------------------
 Surface s1 = DrawBody();
 whiteEntList.Add(s1);
 
@@ -256,7 +258,7 @@ Surface s3 = cc1.ExtrudeAsSurface(len1, 0, 0)[0];
 
 s3.Rotate(ang1, Vector3D.AxisZ);
 
-whiteEntList.Add(s3);  
+whiteEntList.Add(s3);
 
 // bottom
 Line ln3 = new Line(0, -125, 100, -125);
@@ -304,18 +306,20 @@ offsetEntList.AddRange(OffsetSurfaces(offsetAmount, offsetTol, darkEntList));
 // mirror
 Mirror m = new Mirror(Plane.XY);
 MirrorEntities(m, whiteEntList);
-MirrorEntities(m, darkEntList);  
-MirrorEntities(m, offsetEntList);  
+MirrorEntities(m, darkEntList);
+MirrorEntities(m, offsetEntList);
 
 // adds to 3D scene
 design1.Entities.AddRange(whiteEntList, Color.WhiteSmoke);
 design1.Entities.AddRange(darkEntList, Color.FromArgb(31, 31, 31));
-design1.Entities.AddRange(offsetEntList, Color.DarkGray);`
-            },
-            {
-                src: 'h2.jpg',
-                description: 'Utility methods and functions used to create the components of the hair dryer',
-                code: `private static Surface DrawNozzle(double trimTol)
+design1.Entities.AddRange(offsetEntList, Color.DarkGray);
+                            </code></pre>
+                <figure class="figure">
+                    <img src='h2.jpg' class="figure-img img-fluid rounded">
+                    <figcaption class="figure-caption">Utility methods and functions used to create the components of the hair dryer.</figcaption>
+                </figure>
+                <pre><code>
+private static Surface DrawNozzle(double trimTol)
 {
     Arc a1 = new Arc(Plane.YZ, Point2D.Origin, 30, 0, Math.PI);
     a1.Translate(81, 0, 0);
@@ -365,7 +369,7 @@ private static Surface DrawBody()
     s1.ReverseU();
 
     return s1;
-}  
+}
 private static Entity[] OffsetSurfaces(double amount, double tol, IList<Entity> whiteEntList)
 {
     List<Entity> offSurf = new List<Entity>();
@@ -391,26 +395,26 @@ private static Entity[] OffsetSurfaces(double amount, double tol, IList<Entity> 
 /// This function creates an air vent with defined internal and external radius and cuts it from the provided surface. The rotation angle determines the air vent's orientation. If 'rotate' is true, air vents are created on both sides of the surface.
 /// </summary>
 /// <param name="margin"> Margin of the air vent </param>
-/// <param name="r1"> Internal radius </param>
-/// <param name="r2"> External radius </param>
-/// <param name="alpha"> Initial angle for rotation </param>
-/// <param name="beta"> End angle for rotation </param>
-/// <param name="s"> Surface to be cut </param>
-/// <param name="rotate"> If True, air vents are created on both sides of the surface. Otherwise, only one air vent is created. </param>
-private static void CreateAndCutAirVent(double margin, double r1, double r2, double alpha, double beta, Surface s, bool rotate=true)
+                        /// <param name="r1"> Internal radius </param>
+                        /// <param name="r2"> External radius </param>
+                        /// <param name="alpha"> Initial angle for rotation </param>
+                        /// <param name="beta"> End angle for rotation </param>
+                        /// <param name="s"> Surface to be cut </param>
+                        /// <param name="rotate"> If True, air vents are created on both sides of the surface. Otherwise, only one air vent is created. </param>
+                        private static void CreateAndCutAirVent(double margin, double r1, double r2, double alpha, double beta, Surface s, bool rotate=true)
 {
     Arc a1 = new Arc(Plane.YZ, new Point3D(0, 0,0), r1, alpha,beta);
     Arc a2= new Arc(Plane.YZ, new Point3D(0,0,0), r2, beta,alpha);
     Line a3 = new Line(a2.EndPoint, a1.StartPoint);
     Line a4= new Line(a1.EndPoint, a2.StartPoint);
     CompositeCurve C1 = new CompositeCurve(new ICurve[] { a1, a2, a3, a4 });
-    
+
     ICurve[] Curveoffset = C1.Offset(margin,Vector3D.AxisMinusX,0.01, false);
 
     devDept.Eyeshot.Entities.Region reg=new devDept.Eyeshot.Entities.Region(Curveoffset, Plane.YZ, false);
     Surface[] AirVent = reg.ExtrudeAsSurface(-31 * Vector3D.AxisX);
     Surface.Trim(new Surface[] { s }, AirVent, 0.01, false, false);
-    
+
     if (rotate)
     {
         Mirror m = new Mirror(Plane.ZX);
@@ -420,8 +424,8 @@ private static void CreateAndCutAirVent(double margin, double r1, double r2, dou
         devDept.Eyeshot.Entities.Region reg1 = new devDept.Eyeshot.Entities.Region(Curveoffset_copy, Plane.YZ, false);
         Surface[] AirVent2 = reg1.ExtrudeAsSurface(-31 * Vector3D.AxisX);
         Surface.Trim(new Surface[] { s }, AirVent2, 0.01, true, false);
-    
-    }    
+
+    }
 }
 
 private static void MirrorEntities(Mirror m, IList<Entity> entList)
@@ -443,19 +447,28 @@ private static void MirrorEntities(Mirror m, IList<Entity> entList)
            entList.Add(copy);
        }
    }
-}`
+}
+                            </code></pre>
+            </div>
+        </div>
+    </div>
+</div>
 
-            }
 
+<div class="accordion" id="Flat Iron">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">Flat Iron</button>
+        </h2>
 
-
-        ];
-
-        const imageDataSet3 = [
-            {
-                src: 'flat 1.jpg',
-                description: 'design a flat iron',
-                code: `design1.ActiveViewport.DisplayMode = displayType.Shaded;
+        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <figure class="figure">
+                    <img src='flat 1.jpg' class="figure-img img-fluid rounded">
+                    <figcaption class="figure-caption">Design a flat iron.</figcaption>
+                </figure>
+                <pre><code>
+design1.ActiveViewport.DisplayMode = displayType.Shaded;
 design1.Shaded.EdgeColorMethod = edgeColorMethodType.EntityColor;
 design1.Shaded.EdgeThickness = 2;
 
@@ -469,7 +482,7 @@ Arc a2 = new Arc(pln2, new Point2D(21,0), new Point3D(14,19), new Point3D(0,40),
 devDept.Eyeshot.Entities.Point p = new devDept.Eyeshot.Entities.Point(Point3D.Origin, 8);
 Surface s = Surface.Loft(new ICurve[] { p, a1, a2 }, 3)[0];
 design1.Entities.Add(s, Color.WhiteSmoke);
-  
+
 // Handle
 
 // Creates the handle's hole
@@ -498,7 +511,7 @@ Surface trumpet1 = section.SweepAsSurface(Hole, 0.01, sweepMethodType.FrenetSerr
 Surface trumpet2 = section.SweepAsSurface(Hole, 0.01, sweepMethodType.FrenetSerret)[1];
 Surface trumpet3 = section.SweepAsSurface(Hole, 0.01, sweepMethodType.FrenetSerret)[2];
 Surface trumpet4 = section.SweepAsSurface(Hole, 0.01, sweepMethodType.FrenetSerret)[3];
-  
+
 Surface[] trumpet = new Surface[] { trumpet1, trumpet2, trumpet3, trumpet4 };
 design1.Entities.AddRange(trumpet, Color.LightSkyBlue);
 
@@ -506,7 +519,7 @@ design1.Entities.AddRange(trumpet, Color.LightSkyBlue);
 var g1 = Surface.Fillet(new Surface[] { s }, trumpet, 4.5, 0.01, true, true, true, true, true, false, out Surface[] fillets);
 design1.Entities.AddRange(fillets, Color.DarkBlue);
 
-// Main shape 
+// Main shape
 
 // Oblique cut
 Line Sep = new Line(new Point3D(80, 0, 0), new Point3D(70, 0,44));
@@ -524,9 +537,9 @@ Surface.Trim(s , plBase[0], 0.001, false, true);
 Plane plelc = new Plane(new Point3D(80, 0, 0), Vector3D.AxisMinusY);
 EllipticalArc elc = new EllipticalArc(plelc,10,20, -Math.PI, -Math.PI / 2);
 Surface[] s1 = elc.ExtrudeAsSurface(Vector3D.AxisMinusY * 50);
-design1.Entities.AddRange(s1, Color.LightGray);  
+design1.Entities.AddRange(s1, Color.LightGray);
 Surface.Trim(new Surface[] { plsep[0], s, plBase[0] }, s1, 0.1, true, true);
-  
+
 // Reflect all Entities respect plane XZ
 
 // Copy
@@ -553,7 +566,7 @@ ICurve[] knobCurve1 = new ICurve[]
 Curve.Fillet(knobCurve1[0], knobCurve1[1], 1, true, false, true, true, out Arc fillet);
 knobCurve1[0].TrimBy(fillet.StartPoint, false);
 knobCurve1[1].TrimBy(fillet.EndPoint, true);
-  
+
 CompositeCurve knobCurve2 = new CompositeCurve(new ICurve[]
 {
    knobCurve1[0],
@@ -565,7 +578,7 @@ Surface[] knob = knobCurve2.RevolveAsSurface(0, 2 * Math.PI, plnKnob.AxisX, plnK
 design1.Entities.AddRange(knob, Color.LightSteelBlue);
 Surface.Trim(new Surface[] { copy[6], trumpet[0] }, knob, 0.01, true, false);
 
-// Iron plate 
+// Iron plate
 
 // First part
 ICurve[] edgesBase = plBase[0].ExtractEdges();
@@ -604,124 +617,37 @@ devDept.Eyeshot.Entities.Region r2 = new devDept.Eyeshot.Entities.Region(FerroBa
 r2.Translate(-.9 * Vector3D.AxisZ);
 Surface[] plate = r2.ExtrudeAsSurface(-1.5 * Vector3D.AxisZ);
 design1.Entities.AddRange(plate, Color.Gray);
-design1.Entities.Regen();`
-            },
-            {
-                src: 'flat 2.jpg',
-                description: '',
-                code: `// Mesh generation of side surface
+design1.Entities.Regen();
+                    </code></pre>
+                <figure class="figure">
+                    <img src='flat 2.jpg' class="figure-img img-fluid rounded">
+                </figure>
+                <pre><code>
+// Mesh generation of side surface
 SurfaceMesher sm = new SurfaceMesher(s, 3);
 sm.DoWork();
 
 design1.ActiveViewport.DisplayMode = displayType.Shaded;
-design1.Entities.Add(sm.Result);`
-            }
-        ];
-const imageDataSet4= [
-            {
-                src: 'mount.jpg',
-                description: '',
-                code: `// First shape
-CompositeCurve cc1 = new CompositeCurve(new ICurve[]
-{
-    new Line(Plane.XY, 0, 0,96,0),
-    new Line(Plane.XY,96,0,96,24),
-    new Line(Plane.XY,96,24,76,24),
-    new Arc(Plane.XY,new Point2D(76,32),new Point2D(76,40),new Point2D(76,24)),
-    new Line(Plane.XY,76,40,96,40),
-    new Line(Plane.XY,96,40,96,64),
-    new Line(Plane.XY,96,64,0,64),
-    new Line(Plane.XY,0,64,0,0),
-});
+design1.Entities.Add(sm.Result);
+                    </code></pre>
+            </div>
+        </div>
+    </div>
+</div>
 
-devDept.Eyeshot.Entities.Region r1 = new devDept.Eyeshot.Entities.Region(cc1, Plane.XY, true);
-Brep ext1 = r1.ExtrudeAsBrep(16);
-design1.Entities.Add(ext1, Color.Salmon);  
+<div class="accordion" id="Shaver">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">Shaver</button>
+        </h2>
 
-// Second shape
-CompositeCurve cc2 = new CompositeCurve(new ICurve[]
-{
-    new Line(Plane.YZ,0,0,0,34),
-    new Line(Plane.YZ,0,34,20,64),
-    new Line(Plane.YZ,20,64,64,64),
-    new Line(Plane.YZ,64,64,64,0),
-    new Line(Plane.YZ,64,0,0,0),
-});
-
-devDept.Eyeshot.Entities.Region r2 = new devDept.Eyeshot.Entities.Region(cc2, Plane.YZ, true);
-ext1.ExtrudeAdd(r2, 16);
-
-// Third shape
-CompositeCurve cc3 = new CompositeCurve(new ICurve[]
-{
-    new Line(Plane.XZ,16,16,56,16),
-    new Line(Plane.XZ,56,16,56,44),
-    new Line(Plane.XZ,56,44,48,44),
-    new Arc(Plane.XZ,new Point2D(36,44),new Point2D(24,44),new Point2D(48,44)),
-    new Line(Plane.XZ,24,44,16,44),
-    new Line(Plane.XZ,16,44,16,16),
-});
-devDept.Eyeshot.Entities.Region r3 = new devDept.Eyeshot.Entities.Region(cc3, Plane.XZ, true);
-r3.Translate(0, 22, 0);
-ext1.ExtrudeAdd(r3, -42);
-
-// Final shape
-CompositeCurve cc4 = new CompositeCurve(new ICurve[]
-{
-     new Line(Plane.XZ,56,16,96,16),
-     new Line(Plane.XZ,96,16,56,44),
-     new Line(Plane.XZ,56,44,56,16),
-});
-devDept.Eyeshot.Entities.Region r4 = new devDept.Eyeshot.Entities.Region(cc4, Plane.XZ, true);
-r4.Translate(0, 52, 0);
-ext1.ExtrudeAdd(r4, -12);
-design1.Entities.Add(ext1);
-
-design1.Entities.Regen();`
-},
-{              src: 'simulation.jpg',
-                description: 'Problem definition',
-                code: `// Adds the material
-simulation1.Materials.Add(Material.Copper);
-ext1.MaterialName = Material.Copper.Name;
-  
-// Mesh generation
-VolumeMesher vm = new VolumeMesher(ext1, 5, false, simulation1.Materials);
-vm.DoWork();
-
-FemMesh fm = vm.Result;
-fm.Regen(0); // prepares boundary nodes
-
-// Sets boundary conditions
-fm.SetRestraintOnFace(true, true, true, 6, ext1, 0, 0, 0);
-fm.SetForceOnFace(new Vector3D(0, 0, -10), 12, ext1);
-
-// Adds to scene
-simulation1.Entities.Add(fm);
-
-// Changes size of boundary condition symbols
-fm.SymbolSize = 1;`
-},
-{         src: 'deformation.jpg',
-          description: 'Results of deformation and plots',
-          code: `// Solves the system of equations
-Solver s = new Solver(fm);
-s.DoWork();  
-
-// Computes the results plot (Von Mises)
-fm.PlotMode = FemMesh.plotType.VonMises;
-fm.ComputePlot(simulation1, simulation1.Legend);
-
-// Hides boundary conditions before display
-simulation1.ShowLoad = false;
-simulation1.ShowRestraint = false;`
-}
-];
-const imageDataSet5= [
-            {
-                src: 'shaver.jpg',
-                description: '',
-                code: `design1.Units = linearUnitsType.Inches;
+        <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <figure class="figure">
+                    <img src='shaver.jpg' class="figure-img img-fluid rounded">
+                </figure>
+                <pre><code>
+design1.Units = linearUnitsType.Inches;
 
 Plane right = Plane.YZ;
 Plane pln1 = (Plane)right.Clone();
@@ -769,13 +695,16 @@ cap.ExtrudeRemovePattern(rr1, 200, Plane.XY, 25, 1, 2.5, 21);
 
 body.Translate(20, 0, -104);
 cap.Translate(20, 0, -104);
-  
+
 design1.Entities.Add(body, design1.Layers[0].Name, Color.DodgerBlue);
-design1.Entities.Add(cap, design1.Layers[0].Name, Color.Gray);`
-},
-{              src: 'cavità.jpg',
-                description: 'Switch housing',
-                code: `Plane pl1 = Plane.XY;
+design1.Entities.Add(cap, design1.Layers[0].Name, Color.Gray);
+                    </code></pre>
+                <figure class="figure">
+                    <img src='cavità.jpg' class="figure-img img-fluid rounded">
+                    <figcaption class="figure-caption">Switch housing.</figcaption>
+                </figure>
+                <pre><code>
+Plane pl1 = Plane.XY;
 pl1.Rotate(Math.PI / 8, Vector3D.AxisY);
 
 Ellipse a1 = new Ellipse(pl1, 5, 5);
@@ -790,7 +719,7 @@ devDept.Eyeshot.Entities.Region r2 = new devDept.Eyeshot.Entities.Region(a2);
 devDept.Eyeshot.Entities.Region ra1 = new devDept.Eyeshot.Entities.Region(a1, a1.Plane);
 devDept.Eyeshot.Entities.Region ra2 = new devDept.Eyeshot.Entities.Region(a2, a2.Plane);
 Surface sa1 = ra1.ConvertToSurface();
-Surface sa2 = ra2.ConvertToSurface(); 
+Surface sa2 = ra2.ConvertToSurface();
 
 // Brep to subtract
 Brep ruled = Brep.Ruled(sa1, sa2, 0.01);
@@ -798,17 +727,21 @@ Brep ruled = Brep.Ruled(sa1, sa2, 0.01);
 Brep.Face f2 = body.Faces[2];
 Surface[] sf2 = f2.ConvertToSurface();
 sf2[0].Offset(-1, 0.01, out Surface offset1);
-  
+
 // cut by surface
 ruled.CutBy(offset1, true);
-  
+
 // subtraction
 Brep bodySwitch = Brep.Difference(body, ruled)[0];
 
-design1.Entities.Add(bodySwitch, Color.DodgerBlue);`},
-{               src:'logo.jpg',
-                description: 'Brand engraving',
-                code: `design1.TextStyles.Add(new TextStyle("MyStyle", "Arial", fontStyle.Regular));
+design1.Entities.Add(bodySwitch, Color.DodgerBlue);
+                    </code></pre>
+                <figure class="figure">
+                    <img src='logo.jpg' class="figure-img img-fluid rounded">
+                    <figcaption class="figure-caption">Brand engraving.</figcaption>
+                </figure>
+                <pre><code>
+design1.TextStyles.Add(new TextStyle("MyStyle", "Arial", fontStyle.Regular));
 
 devDept.Eyeshot.Entities.Text text = new devDept.Eyeshot.Entities.Text(Plane.XY, "PHILIPS", 3, devDept.Eyeshot.Entities.Text.alignmentType.BottomCenter, "MyStyle");
 text.Rotate(Math.PI / 2, Vector3D.AxisZ);
@@ -827,35 +760,141 @@ foreach (devDept.Eyeshot.Entities.Region reg in letters)
     bodySwitch.Remove(extLetter);
 }
 
-design1.Entities.Regen();`
-}
-];
+design1.Entities.Regen();
+                    </code></pre>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="accordion" id="Mount+Simulation(FEM)">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive">Mount+Simulation(FEM)</button>
+        </h2>
 
+        <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <figure class="figure">
+                    <img src='mount.jpg' class="figure-img img-fluid rounded">
+                </figure>
+                <pre><code>
+// First shape
+CompositeCurve cc1 = new CompositeCurve(new ICurve[]
+{
+    new Line(Plane.XY, 0, 0,96,0),
+    new Line(Plane.XY,96,0,96,24),
+    new Line(Plane.XY,96,24,76,24),
+    new Arc(Plane.XY,new Point2D(76,32),new Point2D(76,40),new Point2D(76,24)),
+    new Line(Plane.XY,76,40,96,40),
+    new Line(Plane.XY,96,40,96,64),
+    new Line(Plane.XY,96,64,0,64),
+    new Line(Plane.XY,0,64,0,0),
+});
 
+devDept.Eyeshot.Entities.Region r1 = new devDept.Eyeshot.Entities.Region(cc1, Plane.XY, true);
+Brep ext1 = r1.ExtrudeAsBrep(16);
+design1.Entities.Add(ext1, Color.Salmon);
 
-         function showImages(imageDataSet) {
-            const gallery = document.getElementById('gallery');
-            gallery.innerHTML = '';
-            imageDataSet.forEach(imageData => {
-                const img = document.createElement('img');
-                img.src = imageData.src;
-                gallery.appendChild(img);
+// Second shape
+CompositeCurve cc2 = new CompositeCurve(new ICurve[]
+{
+    new Line(Plane.YZ,0,0,0,34),
+    new Line(Plane.YZ,0,34,20,64),
+    new Line(Plane.YZ,20,64,64,64),
+    new Line(Plane.YZ,64,64,64,0),
+    new Line(Plane.YZ,64,0,0,0),
+});
 
-                const description = document.createElement('div');
-                description.className = 'description';
-                description.textContent = imageData.description;
-                gallery.appendChild(description);
+devDept.Eyeshot.Entities.Region r2 = new devDept.Eyeshot.Entities.Region(cc2, Plane.YZ, true);
+ext1.ExtrudeAdd(r2, 16);
 
-                const codeDiv = document.createElement('div');
-                codeDiv.className = 'code';
-                const pre = document.createElement('pre');
-                pre.textContent = imageData.code;
-                codeDiv.appendChild(pre);
-                gallery.appendChild(codeDiv);
-            });
-            gallery.style.display = 'block';
-        }
-    </script>
+// Third shape
+CompositeCurve cc3 = new CompositeCurve(new ICurve[]
+{
+    new Line(Plane.XZ,16,16,56,16),
+    new Line(Plane.XZ,56,16,56,44),
+    new Line(Plane.XZ,56,44,48,44),
+    new Arc(Plane.XZ,new Point2D(36,44),new Point2D(24,44),new Point2D(48,44)),
+    new Line(Plane.XZ,24,44,16,44),
+    new Line(Plane.XZ,16,44,16,16),
+});
+devDept.Eyeshot.Entities.Region r3 = new devDept.Eyeshot.Entities.Region(cc3, Plane.XZ, true);
+r3.Translate(0, 22, 0);
+ext1.ExtrudeAdd(r3, -42);
+
+// Final shape
+CompositeCurve cc4 = new CompositeCurve(new ICurve[]
+{
+     new Line(Plane.XZ,56,16,96,16),
+     new Line(Plane.XZ,96,16,56,44),
+     new Line(Plane.XZ,56,44,56,16),
+});
+devDept.Eyeshot.Entities.Region r4 = new devDept.Eyeshot.Entities.Region(cc4, Plane.XZ, true);
+r4.Translate(0, 52, 0);
+ext1.ExtrudeAdd(r4, -12);
+design1.Entities.Add(ext1);
+
+design1.Entities.Regen();
+                    </code></pre>
+                <figure class="figure">
+                    <img src='simulation.jpg' class="figure-img img-fluid rounded">
+                    <figcaption class="figure-caption">Problem definition.</figcaption>
+                </figure>
+                <pre><code>
+// Adds the material
+simulation1.Materials.Add(Material.Copper);
+ext1.MaterialName = Material.Copper.Name;
+
+// Mesh generation
+VolumeMesher vm = new VolumeMesher(ext1, 5, false, simulation1.Materials);
+vm.DoWork();
+
+FemMesh fm = vm.Result;
+fm.Regen(0); // prepares boundary nodes
+
+// Sets boundary conditions
+fm.SetRestraintOnFace(true, true, true, 6, ext1, 0, 0, 0);
+fm.SetForceOnFace(new Vector3D(0, 0, -10), 12, ext1);
+
+// Adds to scene
+simulation1.Entities.Add(fm);
+
+// Changes size of boundary condition symbols
+fm.SymbolSize = 1;
+                   </code></pre>
+                <figure class="figure">
+                    <img src='deformation.jpg' class="figure-img img-fluid rounded">
+                    <figcaption class="figure-caption">Results of deformation and plots.</figcaption>
+                </figure>
+                <pre><code>
+// Solves the system of equations
+Solver s = new Solver(fm);
+s.DoWork();
+
+// Computes the results plot (Von Mises)
+fm.PlotMode = FemMesh.plotType.VonMises;
+fm.ComputePlot(simulation1, simulation1.Legend);
+
+// Hides boundary conditions before display
+simulation1.ShowLoad = false;
+simulation1.ShowRestraint = false;
+                    </code></pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="comment">
+    All projects were executed on Visual Studio (Windows) using the Eyeshot package.
+    For more details see <a href="https://www.devdept.com">here</a>.
+</div> <br> <br>
+
+<div class="header">
+    <h2>References</h2>
+    <p>Email: <a href="mailto:eugeniot1105@gmail.com">eugeniot1105@gmail.com</a></p>
+    <p>Phone: +39 389 465 5730</p>
+</div>
+
 </body>
 </html>
